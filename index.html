@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +12,7 @@
     <script src="https://kit.fontawesome.com/087af60db1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <header>
         <nav>
@@ -19,7 +21,8 @@
                 <span>Movie Time</span>
             </div>
             <div class="search-div">
-                <input type="text" name="search" id="search" placeholder="Search">
+                <input type="text" name="search" id="search" class="search" placeholder="Search">
+                <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
             </div>
             <div class="favourites-icon">
                 <i class="fa-solid fa-heart"></i>
@@ -29,10 +32,21 @@
     </header>
     <main>
         <div class="search-results-container hidden">
-            <!-- <div class="single-movie">Movie Search result</div> -->
+            <ul id="suggestions-list">
+                <!-- <div class="single-movie">
+                <div>
+                    <img src="" alt="">
+                    <span>Movie Name</span>
+                </div>
+                <i class="fa-solid fa-heart"></i>
+
+            </div> -->
+            </ul>
+
         </div>
 
     </main>
-    
+    <script src="script.js"></script>
 </body>
+
 </html>
