@@ -14,6 +14,7 @@ body {
   background-color: #edf1d6;
   color: white;
   position: relative;
+  overflow: hidden;
 }
 
 nav {
@@ -51,6 +52,8 @@ nav {
   border-radius: 0.5rem;
   padding: 1rem;
   border: 2px solid #40513b;
+  font-family: "Nunito", sans-serif;
+  font-size: 1.6rem;
 }
 
 #search:focus {
@@ -73,7 +76,7 @@ nav {
   cursor: pointer;
 }
 
-.favourites-icon {
+.favorites-icon {
   font-size: 2rem;
   color: #edf1d6;
   margin-right: 2rem;
@@ -123,4 +126,191 @@ nav {
 
 .hidden {
   display: none;
+}
+
+.suggestions-heart {
+  color: #eb455f;
+}
+
+/******* MOVIE DETAILS PAGE *******/
+.movie-details-section {
+  color: white;
+  margin-top: 5rem;
+}
+
+.movie-container {
+  border-radius: 0.8rem;
+  background-color: #4d455d;
+  width: 60%;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+.title-rating-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 0 2rem;
+}
+
+.title-container {
+  font-size: 1.6rem;
+}
+
+.title-container h2 {
+  font-size: 5rem;
+}
+
+.title-details {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.rating-container {
+  font-size: 2rem;
+}
+
+.fa-star {
+  color: gold;
+}
+
+.rating-total {
+  font-size: 1.3rem;
+  text-align: right;
+}
+
+.poster-details-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.image-container img {
+  background-color: #eb455f;
+  height: 30rem;
+  width: 20rem;
+}
+
+.details-container {
+  font-size: 1.7rem;
+  color: #e96479;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+p strong {
+  color: #edf1d6;
+}
+
+.btn {
+  position: relative;
+  right: -8%;
+  width: 12rem;
+  height: 5rem;
+  color: #edf1d6;
+  background-color: #609966;
+  border: 2px solid #40513b;
+  border-radius: 0.5rem;
+  font-size: 1.6rem;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn i {
+  color: #40513b;
+  margin-right: 1rem;
+}
+
+.btn:hover {
+  background-color: white;
+  color: #609966;
+}
+
+/******* FAVORITES SECTION *******/
+@keyframes fav-container-anim {
+  from {
+    right: -100%;
+  }
+  to {
+    right: 0%;
+  }
+}
+.favorites-section {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200%;
+  height: 100vh;
+  background-color: #0e0e0ed5;
+  color: #e96479;
+  z-index: 9999;
+  animation-name: fav-container-anim;
+  animation-duration: 0.2s;
+}
+
+#fs-container {
+  background-color: #f5e9cf;
+  margin-left: auto;
+  width: 20%;
+  height: 100vh;
+  overflow: scroll;
+}
+
+#favorites-container {
+  padding: 3rem;
+  
+}
+
+#fs-container h2 {
+  margin: 2rem;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+}
+
+.fa-xmark {
+  position: absolute;
+  right: 1%;
+  top: 3%;
+  text-align: end;
+  font-size: 2rem;
+  color: #eb455f;
+  cursor: pointer;
+}
+
+.star-favo {
+  margin-right: 0.5rem;
+}
+
+.favorite-movie {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #4d455d;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  color: #7db9b6;
+  margin-bottom: 3rem;
+}
+
+.fa-trash {
+  color: #eb455f;
+  cursor: pointer;
+}
+
+.favorite-movie img {
+  width: 8rem;
+  height: 12rem;
+}
+
+.fm-details {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
