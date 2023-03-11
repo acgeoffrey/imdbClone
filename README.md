@@ -11,12 +11,12 @@ This is a imdbClone App.
 
 ### Features
   - Home Page
-    - Search any movie from the imdb API and displays the search results on the frontend while typing.
+    - Searches any movie from the imdb via API and displays the search results on the frontend while typing.
   - Movie Page
-    - Should show information about the movie.
+    - Shows the information about the movie.
   - Favorites
     - Display a list of all the favorite movies.
-    - List is persistent(LocalStorage)
+    - List is persistent(LocalStorage) and won't destroy even if the   browser if restarted or reloaded.
 
 ### Screenshot
 
