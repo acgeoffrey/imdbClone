@@ -48,6 +48,10 @@
     right: -2%;
   }
 
+  .btn-mp {
+    right: 0%;
+  }
+
   .single-movie div:nth-child(2n) {
     gap: 0;
   }
@@ -69,6 +73,14 @@
     right: -2%;
     margin-bottom: 2rem;
   }
+
+  .btn-mp {
+    right: 0;
+    width: 18rem;
+    height: 5rem;
+    font-size: 1.5rem;
+  }
+
   .search-results-container {
     width: 50%;
   }
@@ -191,6 +203,8 @@ nav {
     /* margin-bottom: 5rem; */
   }
 
+  
+
   /* .image-container img {
     background-color: #eb455f;
     height: 20rem;
@@ -236,6 +250,17 @@ nav {
 
   .rating-total {
     font-size: 1.2rem;
+  }
+
+  .btn-mp {
+    width: 18rem;
+    height: 5rem;
+    right: -50%;
+    transform: translateX(-50%);
+  }
+
+  .other-details div {
+    margin-top: 4rem;
   }
 }
 

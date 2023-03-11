@@ -70,7 +70,7 @@ nav {
 #search::placeholder {
   font-family: "Nunito", sans-serif;
   font-size: 1.6rem;
-  transform: translateX(45%);
+  transform: translateX(42.5%);
 }
 
 #search-icon {
@@ -195,7 +195,7 @@ nav {
 
 .poster-details-container {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 3rem;
 }
 
@@ -241,6 +241,17 @@ p strong {
 .btn:hover {
   background-color: white;
   color: #609966;
+}
+
+.btn-mp {
+  right: 0%;
+  color: white;
+  width: 18rem;
+}
+
+.btn-mp i {
+  color: #eb455f;
+
 }
 
 /******* FAVORITES SECTION *******/

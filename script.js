@@ -99,6 +99,9 @@ function addMovieContentToDom(data) {
                   <p> <strong>Genre: </strong> <span>${data.Genre}</span> </p>
                   <p><strong>Director: </strong> <span>${data.Director}</span> </p>
                   <p><strong>Cast: </strong> <span>${data.Actors}</span> </p>
+                  <div class="${data.Title}">
+                  <button class="btn btn-mp"><i class="fa-solid fa-heart"></i> Add to Favorites</button>
+                  </div>
               </div>
           </div>
 
@@ -113,8 +116,10 @@ function renderMovieContent(movieName) {
   (async function fetchMoviesSearch() {
     let data = await fetchMovies(movieName);
     // console.log(data);
-    document.getElementById("mds").innerHTML = "";
-    addMovieContentToDom(data);
+    if(data.Response == "True") {
+      document.getElementById("mds").innerHTML = "";
+      addMovieContentToDom(data);
+    }
   })();
 }
 
@@ -168,7 +173,6 @@ function addFavDom() {
                         <p><i class="fa-solid fa-star star-favo" style="color:gold;"></i>${movie.imdbRating}</p>
                     </div>
                     <div>
-
                         <i class="fa-solid fa-trash" data-id="${movie.Title}"></i>
                     </div>
                 </div>
@@ -216,27 +220,35 @@ searchEl.addEventListener("keyup", function () {
 document.addEventListener("click", function (e) {
   searchEl.placeholder = "Search";
   const target = e.target;
-  // console.log(target.parentNode.className);
+  // console.log(target.className);
+  let movieName = target.parentNode.className;
   document.querySelector(".search-results-container").classList.add("hidden");
 
   if (target.className == "search") {
     searchEl.placeholder = "";
+    if (searchEl.value !== "") {
+      document
+      .querySelector(".search-results-container")
+      .classList.remove("hidden");
+    }
   }
   if (target.className == "btn") {
     document.getElementById("mds").innerHTML = "";
   }
   if (!favoritesSectionEl.classList.contains("hidden")){
     const movieName = target.parentNode.className;
-    let favMovie = JSON.parse(localStorage.getItem("favMovies"));
-  let movie = Array.from(favMovie).forEach((movie) => {
-    if (movie.Title == movieName) {
+  //   let favMovie = JSON.parse(localStorage.getItem("favMovies"));
+  // let movie = Array.from(favMovie).forEach((movie) => {
+  //   if (movie.Title == movieName) {
 
       renderMovieContent(movieName);
-    }
-  });
+    // }
+  // });
+}
+if (target.className == "btn btn-mp") {
+  favorites(e);
 }
 });
-
 
 suggestionsListEl.addEventListener("click", function (e) {
   const target = e.target;
