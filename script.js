@@ -12,7 +12,7 @@ let favoritesArray = [];
 
 addFavDom()
 
-//Fetch movies from API
+//Fetch the movie from API
 async function fetchMovies(search) {
   try {
     const url = `http://www.omdbapi.com/?t=${search}&apikey=c0eebbf7`;
@@ -24,24 +24,24 @@ async function fetchMovies(search) {
   }
 }
 
-//Add and render the movie in the suggestions container
+//Add and render the movies in the suggestions container
 function addSuggestionToDom(data) {
-  const li = document.createElement("li");
+  const newElement = document.createElement("div");
 
-  li.innerHTML = `<div class="single-movie" >
-  <div class="${data.Title}">
+  newElement.innerHTML = `<div class="single-movie" >
+  <div class="${data.Title}" id="mov-suggs">
       <img src="${data.Poster}" alt="" id="${data.Title}">
       <span>${data.Title}</span>
   </div>
   <div class="${data.Title}">
-  <i class="fa-solid fa-star" style="color:gold;"></i>
-  <span>${data.imdbRating}</span>
+  <i class="fa-solid fa-star sugg-rating" ></i>
+  <span class="sugg-rating" style="margin-right:1rem;">${data.imdbRating}</span>
   <i class="fa-solid fa-heart suggestions-heart"></i>
   </div>
 
     </div>`;
 
-  suggestionsListEl.append(li);
+  suggestionsListEl.append(newElement);
 }
 
 function renderSuggestions(data) {
@@ -61,48 +61,8 @@ function renderSuggestions(data) {
   }
 }
 
-//Handle click for whole page
-document.addEventListener("click", function (e) {
-  const target = e.target;
-  // console.log(target);
-  document.querySelector(".search-results-container").classList.add("hidden");
-
-  if (target.className == "search") {
-    document
-      .querySelector(".search-results-container")
-      .classList.remove("hidden");
-  }
-  if (target.className == "btn") {
-    document.getElementById("mds").innerHTML = "";
-  }
-});
-
-//Handle keyboard event while search
-searchEl.addEventListener("keyup", function () {
-  let search = searchEl.value;
-  if (search === "") {
-    // suggestionsContainer.innerHTML = "";
-    suggestionsArray = [];
-  }
-  (async function fetchMoviesSearch() {
-    let data = await fetchMovies(search);
-    // console.log(data);
-    renderSuggestions(data);
-  })();
-});
 
 //Render the movie page
-suggestionsListEl.addEventListener("click", function (e) {
-  const target = e.target;
-  const movieName = target.parentNode.className;
-  console.log(movieName);
-  (async function fetchMoviesSearch() {
-    let data = await fetchMovies(movieName);
-    // console.log(data);
-    document.getElementById("mds").innerHTML = "";
-    renderMovieContent(data);
-  })();
-});
 
 function addMovieContentToDom(data) {
   const newContent = document.createElement("div");
@@ -149,8 +109,13 @@ function addMovieContentToDom(data) {
   document.querySelector(".movie-details-section").append(newContent);
 }
 
-function renderMovieContent(data) {
-  addMovieContentToDom(data);
+function renderMovieContent(movieName) {
+  (async function fetchMoviesSearch() {
+    let data = await fetchMovies(movieName);
+    // console.log(data);
+    document.getElementById("mds").innerHTML = "";
+    addMovieContentToDom(data);
+  })();
 }
 
 //Handling favorites
@@ -193,9 +158,11 @@ function addFavDom() {
       const newElement = document.createElement("div");
       newElement.classList.add("favorite-movie");
       newElement.innerHTML = `
+      <div class="${movie.Title}">
       <img src="${movie.Poster}" alt="">
-                <div class="fm-details">
-                    <div>
+      </div>
+                <div class="fm-details ${movie.Title}">
+                    <div class="${movie.Title}">
                         <p>${movie.Title}</p>
                         <p>${movie.Year}</p>
                         <p><i class="fa-solid fa-star star-favo" style="color:gold;"></i>${movie.imdbRating}</p>
@@ -211,9 +178,7 @@ function addFavDom() {
   }
 }
 
-favoritesDivEl.addEventListener("click", function () {
-  favoritesSectionEl.classList.toggle("hidden");
-});
+
 
  // Delete from favorite list
  function deleteFavMovie(name) {
@@ -227,9 +192,70 @@ favoritesDivEl.addEventListener("click", function () {
   addFavDom();
 }
 
+//Handle keyboard event while search
+searchEl.addEventListener("keyup", function () {
+  document
+      .querySelector(".search-results-container")
+      .classList.remove("hidden");
+      
+  let search = searchEl.value;
+  if (search === "") {
+    // suggestionsContainer.innerHTML = "";
+    suggestionsArray = [];
+  }
+  (async function fetchMoviesSearch() {
+    let data = await fetchMovies(search);
+    // console.log(data);
+    
+    renderSuggestions(data);
+  })();
+});
+
+//Handling click events
+//Handle click for whole page
+document.addEventListener("click", function (e) {
+  searchEl.placeholder = "Search";
+  const target = e.target;
+  // console.log(target.parentNode.className);
+  document.querySelector(".search-results-container").classList.add("hidden");
+
+  if (target.className == "search") {
+    searchEl.placeholder = "";
+  }
+  if (target.className == "btn") {
+    document.getElementById("mds").innerHTML = "";
+  }
+  if (!favoritesSectionEl.classList.contains("hidden")){
+    const movieName = target.parentNode.className;
+    let favMovie = JSON.parse(localStorage.getItem("favMovies"));
+  let movie = Array.from(favMovie).forEach((movie) => {
+    if (movie.Title == movieName) {
+
+      renderMovieContent(movieName);
+    }
+  });
+}
+});
+
+
+suggestionsListEl.addEventListener("click", function (e) {
+  const target = e.target;
+  const movieName = target.parentNode.className;
+  // console.log(movieName);
+  if (movieName) {
+
+    renderMovieContent(movieName)
+  }
+});
+
+favoritesDivEl.addEventListener("click", function () {
+  favoritesSectionEl.classList.toggle("hidden");
+});
+
 document.getElementById("close").addEventListener("click", function () {
   favoritesSectionEl.classList.toggle("hidden");
 });
+
 async function favClick(e){
   if (e.target.classList.contains("suggestions-heart")) {
     favorites(e);

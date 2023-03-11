@@ -46,7 +46,7 @@ nav {
 
 #search {
   height: 4rem;
-  width: 40rem;
+  width: 20%;
   border: none;
   background-color: #9dc08b;
   border-radius: 0.5rem;
@@ -54,6 +54,10 @@ nav {
   border: 2px solid #40513b;
   font-family: "Nunito", sans-serif;
   font-size: 1.6rem;
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #search:focus {
@@ -65,14 +69,16 @@ nav {
 
 #search::placeholder {
   font-family: "Nunito", sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  transform: translateX(45%);
 }
 
 #search-icon {
+  display: none;
   color: #609966;
   font-size: 1.5rem;
   position: relative;
-  right: 7%;
+  right: 60%;
   cursor: pointer;
 }
 
@@ -85,15 +91,15 @@ nav {
 
 .search-results-container {
   border-radius: 1rem;
-  width: 46rem;
+  width: 30%;
   position: absolute;
   background-color: #9dc08b;
   top: 1%;
   left: 50%;
-  transform: translateX(-40%);
+  transform: translateX(-50%);
   border: 1px solid #40513b;
   z-index: 10;
-  padding-top: 10rem;
+  padding-top: 6rem;
   padding-bottom: 2rem;
 }
 
@@ -128,6 +134,10 @@ nav {
   display: none;
 }
 
+.sugg-rating {
+  font-size: 1.5rem;
+}
+
 .suggestions-heart {
   color: #eb455f;
 }
@@ -151,7 +161,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
 }
 
 .title-container {
@@ -159,15 +169,18 @@ nav {
 }
 
 .title-container h2 {
-  font-size: 5rem;
+  font-size: 3.3rem;
 }
 
 .title-details {
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
+  gap: 1.5rem;
 }
 
 .rating-container {
+  width: 10%;
+  text-align: right;
   font-size: 2rem;
 }
 
