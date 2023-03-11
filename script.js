@@ -15,7 +15,7 @@ addFavDom()
 //Fetch the movie from API
 async function fetchMovies(search) {
   try {
-    const url = `http://www.omdbapi.com/?t=${search}&apikey=c0eebbf7`;
+    const url = `https://www.omdbapi.com/?t=${search}&apikey=c0eebbf7`;
     const response = await fetch(url);
     const data = await response.json();
     return data;
