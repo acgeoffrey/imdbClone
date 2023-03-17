@@ -70,7 +70,7 @@ nav {
 #search::placeholder {
   font-family: "Nunito", sans-serif;
   font-size: 1.6rem;
-  transform: translateX(42.5%);
+  /* transform: translateX(42.5%); */
 }
 
 #search-icon {
@@ -124,6 +124,11 @@ nav {
   background-color: red;
   height: 6rem;
   width: 5rem;
+  cursor: pointer;
+}
+
+.single-movie div span {
+  cursor: pointer;
 }
 
 .single-movie i {
@@ -251,7 +256,6 @@ p strong {
 
 .btn-mp i {
   color: #eb455f;
-
 }
 
 /******* FAVORITES SECTION *******/
@@ -286,7 +290,6 @@ p strong {
 
 #favorites-container {
   padding: 3rem;
-  
 }
 
 #fs-container h2 {

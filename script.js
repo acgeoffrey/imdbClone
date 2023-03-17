@@ -9,13 +9,20 @@ const favoritesSectionEl = document.querySelector(".favorites-section");
 
 let suggestionsArray = [];
 let favoritesArray = [];
+let isSearchingId = false;
 
-addFavDom()
+addFavDom();
 
 //Fetch the movie from API
 async function fetchMovies(search) {
   try {
-    const url = `https://www.omdbapi.com/?t=${search}&apikey=c0eebbf7`;
+    let url;
+    if (isSearchingId) {
+      url = `https://www.omdbapi.com/?i=${search}&apikey=c0eebbf7`;
+      isSearchingId = false;
+    } else {
+      url = `https://www.omdbapi.com/?t=${search}&apikey=c0eebbf7`;
+    }
     const response = await fetch(url);
     const data = await response.json();
     return data;
@@ -60,7 +67,6 @@ function renderSuggestions(data) {
     addSuggestionToDom(suggestionsArray[i]);
   }
 }
-
 
 //Render the movie page
 
@@ -116,7 +122,7 @@ function renderMovieContent(movieName) {
   (async function fetchMoviesSearch() {
     let data = await fetchMovies(movieName);
     // console.log(data);
-    if(data.Response == "True") {
+    if (data.Response == "True") {
       document.getElementById("mds").innerHTML = "";
       addMovieContentToDom(data);
     }
@@ -147,6 +153,7 @@ async function favorites(e) {
 
   if (!isMoviePresent) {
     favoritesArray.push(data);
+    window.alert("Movie added to Favorites!");
   }
 
   localStorage.setItem("favMovies", JSON.stringify(favoritesArray));
@@ -182,10 +189,8 @@ function addFavDom() {
   }
 }
 
-
-
- // Delete from favorite list
- function deleteFavMovie(name) {
+// Delete from favorite list
+function deleteFavMovie(name) {
   let favMovie = JSON.parse(localStorage.getItem("favMovies"));
   let updatedList = Array.from(favMovie).filter((movie) => {
     return movie.Title != name;
@@ -199,18 +204,22 @@ function addFavDom() {
 //Handle keyboard event while search
 searchEl.addEventListener("keyup", function () {
   document
-      .querySelector(".search-results-container")
-      .classList.remove("hidden");
-      
+    .querySelector(".search-results-container")
+    .classList.remove("hidden");
+
   let search = searchEl.value;
   if (search === "") {
     // suggestionsContainer.innerHTML = "";
     suggestionsArray = [];
+    document.querySelector(".search-results-container").classList.add("hidden");
+  }
+  if (search.substring(0, 2) == "tt") {
+    isSearchingId = true;
   }
   (async function fetchMoviesSearch() {
     let data = await fetchMovies(search);
     // console.log(data);
-    
+
     renderSuggestions(data);
   })();
 });
@@ -218,7 +227,7 @@ searchEl.addEventListener("keyup", function () {
 //Handling click events
 //Handle click for whole page
 document.addEventListener("click", function (e) {
-  searchEl.placeholder = "Search";
+  searchEl.placeholder = "Search title or IMDB ID";
   const target = e.target;
   // console.log(target.className);
   let movieName = target.parentNode.className;
@@ -228,26 +237,26 @@ document.addEventListener("click", function (e) {
     searchEl.placeholder = "";
     if (searchEl.value !== "") {
       document
-      .querySelector(".search-results-container")
-      .classList.remove("hidden");
+        .querySelector(".search-results-container")
+        .classList.remove("hidden");
     }
   }
   if (target.className == "btn") {
     document.getElementById("mds").innerHTML = "";
   }
-  if (!favoritesSectionEl.classList.contains("hidden")){
+  if (!favoritesSectionEl.classList.contains("hidden")) {
     const movieName = target.parentNode.className;
-  //   let favMovie = JSON.parse(localStorage.getItem("favMovies"));
-  // let movie = Array.from(favMovie).forEach((movie) => {
-  //   if (movie.Title == movieName) {
+    //   let favMovie = JSON.parse(localStorage.getItem("favMovies"));
+    // let movie = Array.from(favMovie).forEach((movie) => {
+    //   if (movie.Title == movieName) {
 
-      renderMovieContent(movieName);
+    renderMovieContent(movieName);
     // }
-  // });
-}
-if (target.className == "btn btn-mp") {
-  favorites(e);
-}
+    // });
+  }
+  if (target.className == "btn btn-mp") {
+    favorites(e);
+  }
 });
 
 suggestionsListEl.addEventListener("click", function (e) {
@@ -255,8 +264,7 @@ suggestionsListEl.addEventListener("click", function (e) {
   const movieName = target.parentNode.className;
   // console.log(movieName);
   if (movieName) {
-
-    renderMovieContent(movieName)
+    renderMovieContent(movieName);
   }
 });
 
@@ -268,12 +276,11 @@ document.getElementById("close").addEventListener("click", function () {
   favoritesSectionEl.classList.toggle("hidden");
 });
 
-async function favClick(e){
+async function favClick(e) {
   if (e.target.classList.contains("suggestions-heart")) {
     favorites(e);
   } else if (e.target.classList.contains("fa-trash")) {
-    deleteFavMovie(e.target.dataset.id)
+    deleteFavMovie(e.target.dataset.id);
   }
 }
 document.addEventListener("click", favClick);
-
